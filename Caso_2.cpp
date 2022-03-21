@@ -33,6 +33,17 @@ int partirRandom(int arr[], int izquierda, int derecha){
 }
 
 void quickSort(int arr[], int izquierda, int derecha){
+    /*
+    Funcionamiento: Ordena el arreglo realizando llamadas recursivas, este quicksort ordena
+    utilizando un pivote aleatorio.
+
+    Entradas:
+    -arr[] (int): Arreglo a ordenar
+    -izquierda (int): Posición de lado izquierdo del arreglo.
+    -derecha(int): Posición de lado derecho del arreglo.
+
+    Salidas: N/A
+    */
     if(izquierda<derecha){
         int pivote=partirRandom(arr,izquierda,derecha);
         quickSort(arr, izquierda, pivote-1); //mitad izquierda
@@ -68,6 +79,17 @@ int partir(int arr[], int izquierda, int derecha){
 }
 
 void quickSort2(int arr[], int izquierda, int derecha){
+    /*
+    Funcionamiento: Ordena el arreglo realizando llamadas recursivas, este quicksort ordena
+    utilizando un pivote fijo.
+
+    Entradas:
+    -arr[] (int): Arreglo a ordenar
+    -izquierda (int): Posición de lado izquierdo del arreglo.
+    -derecha(int): Posición de lado derecho del arreglo.
+
+    Salidas: N/A
+    */
     if(izquierda<derecha){
         int pivote=partir(arr,izquierda,derecha);
         quickSort(arr, izquierda, pivote-1); //mitad izquierda
@@ -124,6 +146,15 @@ void mostrarArreglo(int arr[], int tamanio){
 }
 
 string leerArchivo(string fileName){
+    /*
+    Funcionamiento: Recibe el nombre del archivo de extensión txt, lo lee y retorna el contenido.
+
+    Entradas:
+    -fileName (string) Nombre del archivo a leer.
+
+    Salidas:
+    -text (string): Contenido del archivo leido.
+    */
     ifstream file;
     string text,line;
 
@@ -143,6 +174,16 @@ string leerArchivo(string fileName){
 }
 
 void llenarArregloRandom(int arr[],int cantidad, int arr2[]){
+    /*
+    Funcionamiento: Llena el arreglo de manera aleatoria. Recibe dos arreglos para las pruebas del quicksort.
+
+    Entradas:
+    -arr[] (int) Primer arreglo a llenar.
+    -cantidad (int) Tamaño de los arreglos a llenar.
+    -arr2[] (int) Segundo arreglo a llenar.
+
+    Salidas: N/A
+    */
     for(int posi=0;posi<cantidad;posi++){
         arr[posi]=rand();
         arr2[posi]=rand();
@@ -150,6 +191,16 @@ void llenarArregloRandom(int arr[],int cantidad, int arr2[]){
 }
 
 void llenarArregloOrdenado(int arr[],int cantidad, int arr2[]){
+    /*
+    Funcionamiento: Llena el arreglo de manera ordenada. Recibe dos arreglos para las pruebas del quicksort.
+
+    Entradas:
+    -arr[] (int) Primer arreglo a llenar.
+    -cantidad (int) Tamaño de los arreglos a llenar.
+    -arr2[] (int) Segundo arreglo a llenar.
+
+    Salidas: N/A
+    */
     for(int posi=0;posi<cantidad;posi++){
         arr[posi]=posi;
         arr2[posi]=posi;
@@ -158,6 +209,16 @@ void llenarArregloOrdenado(int arr[],int cantidad, int arr2[]){
 
 
 void llenarArregloInverso(int arr[],int cantidad, int arr2[]){
+    /*
+    Funcionamiento: Llena el arreglo de manera inversa. Recibe dos arreglos para las pruebas del quicksort.
+
+    Entradas:
+    -arr[] (int) Primer arreglo a llenar.
+    -cantidad (int) Tamaño de los arreglos a llenar.
+    -arr2[] (int) Segundo arreglo a llenar.
+
+    Salidas: N/A
+    */
     for(int posi=0;posi<cantidad;posi++){
         arr[posi]=cantidad-posi;
         arr2[posi]=cantidad-posi;
