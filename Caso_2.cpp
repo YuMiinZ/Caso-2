@@ -17,18 +17,20 @@ int partirRandom(int arr[], int izquierda, int derecha){
     Salidas:
     -left(int): Retorna el índice de la partición.
     */
-    int pivot = izquierda,left = izquierda,next = left+1, random = izquierda+rand()%(derecha-izquierda);
+
+    //int random = izquierda+rand()%(derecha-izquierda), pivot = random ,left = izquierda,next = left+1 ;
+    //swap(arr[random], arr[izquierda]);
+    int random=izquierda+rand()%(derecha-izquierda), pivot = izquierda, left = izquierda, next = left+1;;
     swap(arr[random], arr[izquierda]);
-    while (next <= derecha) {
-        while(arr[next]<arr[pivot]){
+
+    for(;next<=derecha;next++){
+        if(arr[next]<arr[pivot]){
             left++;
             swap(arr[left], arr[next]);
-            next++;
+
         }
-        next++;
     }
     swap(arr[left], arr[pivot]);
-
     return left;
 }
 
@@ -44,7 +46,7 @@ void quickSort(int arr[], int izquierda, int derecha){
 
     Salidas: N/A
     */
-    if(izquierda<derecha){
+   if(izquierda<derecha){
         int pivote=partirRandom(arr,izquierda,derecha);
         quickSort(arr, izquierda, pivote-1); //mitad izquierda
         quickSort(arr, pivote+1, derecha); //mitad derecha
@@ -63,19 +65,19 @@ int partir(int arr[], int izquierda, int derecha){
     Salidas:
     -left(int): Retorna el índice de la partición.
     */
-    int pivot = izquierda,left = izquierda,next = left+1, random = izquierda+rand()%(derecha-izquierda);
-    //swap(arr[random], arr[izquierda]);
-    while (next <= derecha) {
-        while(arr[next]<arr[pivot]){
+
+    int pivot = izquierda, left = izquierda, next = left+1;
+
+    for(;next<=derecha;next++){
+        if(arr[next]<arr[pivot]){
             left++;
             swap(arr[left], arr[next]);
-            next++;
+
         }
-        next++;
     }
     swap(arr[left], arr[pivot]);
-
     return left;
+
 }
 
 void quickSort2(int arr[], int izquierda, int derecha){
@@ -92,8 +94,8 @@ void quickSort2(int arr[], int izquierda, int derecha){
     */
     if(izquierda<derecha){
         int pivote=partir(arr,izquierda,derecha);
-        quickSort(arr, izquierda, pivote-1); //mitad izquierda
-        quickSort(arr, pivote+1, derecha); //mitad derecha
+        quickSort2(arr, izquierda, pivote-1); //mitad izquierda
+        quickSort2(arr, pivote+1, derecha); //mitad derecha
     }
 }
 
@@ -124,7 +126,7 @@ void insertionSort(int arr[], int tamanio){
 
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double,milli> diff = end - start;
-    std::cout << "Tiempo de ejecución: " <<diff.count() << " ms\n"<<"Cantidad de iteraciones en el for: "<<contadorFor<<
+    std::cout << "\n\nTiempo de ejecucion: " <<diff.count() << " ms\n"<<"Cantidad de iteraciones en el for: "<<contadorFor<<
     "\nCantidad de iteraciones del while: "<<contadorWhile;
 }
 
@@ -138,11 +140,9 @@ void mostrarArreglo(int arr[], int tamanio){
 
     Salidas: Imprime todos los elementos en consola.
     */
-    cout<<"Arreglo\n";
     for(int posi=0;posi<tamanio;posi++){
         cout<<arr[posi]<<" ";
     }
-    cout<<"\n\n";
 }
 
 string leerArchivo(string fileName){
@@ -186,7 +186,7 @@ void llenarArregloRandom(int arr[],int cantidad, int arr2[]){
     */
     for(int posi=0;posi<cantidad;posi++){
         arr[posi]=rand();
-        arr2[posi]=rand();
+        arr2[posi]=arr[posi];
     }
 }
 
@@ -260,7 +260,7 @@ int buscarApariciones(string text,string pattern){
 
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double,milli> diff = end - start;
-    std::cout << "Tiempo de ejecución: " <<diff.count() << " ms\n"<<"Cantidad de iteraciones en el for: "<<contadorFor<<
+    std::cout << "\nTiempo de ejecucion: " <<diff.count() << " ms\n"<<"Cantidad de iteraciones en el for: "<<contadorFor<<
     "\nCantidad de iteraciones del while: "<<contadorWhile;
 
      return apariciones;
@@ -271,33 +271,43 @@ int buscarApariciones(string text,string pattern){
 int main(){
     //----------------------Ordenando---------------------------
     //int arr1[]={8,5,4,2,10,1};
-    int arr1[2800],arr2[2800];
-    llenarArregloInverso(arr1,2800,arr2);//Generar un arreglo de manera aleatoria con x cantidad de elementos para las pruebas.
-
-    //mostrarArreglo(arr1,sizeof(arr1)/sizeof(arr1[0]));
+    int arr1[10],arr2[10];
+    llenarArregloRandom(arr1,10,arr2);//Generar un arreglo de manera aleatoria con x cantidad de elementos para las pruebas.
+    cout<<"Arreglo antes de ordenar en quicksort"<<endl;
+    mostrarArreglo(arr1,sizeof(arr1)/sizeof(arr1[0]));
     auto start = std::chrono::system_clock::now();
     quickSort(arr1,0,(sizeof(arr1)/sizeof(arr1[0]))-1);
-    //mostrarArreglo(arr2,sizeof(arr2)/sizeof(arr2[0]));
     auto end = std::chrono::system_clock::now();
     std::chrono::duration<double,milli> diff = end - start;
-    std::cout << "Tiempo de ejecución con pivote ALEATORIO " <<diff.count() << " ms\n";
+    cout<<"\n\nArreglo luego de ordenar en quicksort"<<endl;
+    mostrarArreglo(arr1,sizeof(arr1)/sizeof(arr1[0]));
+    cout << "\n\nTiempo de ejecucion con pivote ALEATORIO " <<diff.count() << " ms\n";
 
-    start = std::chrono::system_clock::now();
-    //mostrarArreglo(arr2,sizeof(arr2)/sizeof(arr2[0]));
+    cout<<"\n\n------------------------------------------------------------------------------------------"<<endl;
+    cout<<"Arreglo antes de ordenar en quicksort 2"<<endl;
+    mostrarArreglo(arr2,sizeof(arr2)/sizeof(arr2[0]));
+    auto start2 = std::chrono::system_clock::now();
     quickSort2(arr2,0,(sizeof(arr2)/sizeof(arr2[0]))-1);
-    //mostrarArreglo(arr2,sizeof(arr2)/sizeof(arr2[0]));
-    end = std::chrono::system_clock::now();
-    diff = end - start;
-    std::cout << "Tiempo de ejecución con pivote FIJO " <<diff.count() << " ms\n";
+    auto end2 = std::chrono::system_clock::now();
+    std::chrono::duration<double,milli> diff2 = end2 - start2;
+    cout<<"\n\nArreglo luego de ordenar en quicksort 2"<<endl;
+    mostrarArreglo(arr2,sizeof(arr2)/sizeof(arr2[0]));
+    cout << "\n\nTiempo de ejecucion con pivote FIJO " <<diff2.count() << " ms\n";
 
+    cout<<"\n\n------------------------------------------------------------------------------------------"<<endl;
+    cout<<"Arreglo antes de ordenar en insertion sort"<<endl;
+    llenarArregloInverso(arr1,10,arr2);//Generar un arreglo de manera aleatoria con x cantidad de elementos para las pruebas.
+    mostrarArreglo(arr1,sizeof(arr1)/sizeof(arr1[0]));
     insertionSort(arr1,(sizeof(arr1)/sizeof(arr1[0])));
-    //mostrarArreglo(arr,sizeof(arr)/sizeof(arr[0]));
+    cout<<"\n\nArreglo luego de ordenar en insertion sort"<<endl;
+    mostrarArreglo(arr1,sizeof(arr1)/sizeof(arr1[0]));
 
     //----------------------Búsqueda Texto----------------------
+    cout<<"\n\n------------------------------------------------------------------------------------------"<<endl;
+    cout<<"Buscando palabra..."<<endl;
     string text=leerArchivo("10mb.txt"), pattern="casa";
     int apariciones=buscarApariciones(text, pattern);
     cout<<"\n\nSe ha encontrado la palabra "<<apariciones<<" veces.";
-
 }
 
 
